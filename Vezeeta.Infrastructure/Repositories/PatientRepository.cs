@@ -17,7 +17,7 @@ namespace Vezeeta.Infrastructure.Repositories
 
         public async Task<IEnumerable<User>> GetAllAsync()
         {
-            return await _userManager.GetUsersInRoleAsync("Patient");
+            return (List<User>)await _userManager.GetUsersInRoleAsync("Patient");
         }
 
         public async Task<User> GetByIdAsync(int Id)

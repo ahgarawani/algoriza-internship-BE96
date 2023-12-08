@@ -10,7 +10,7 @@ namespace Vezeeta.Application.Interfaces
 {
     public interface IPatientService
     {
-        Task<List<PatientResponseDTO>> GetAllAsync();
+        Task<IEnumerable<PatientResponseDTO>> GetAllAsync(UserPaginatedSearchQueryDTO queries);
         Task<PatientResponseDTO> GetByIdAsync(int id);
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vezeeta.Application.Interfaces;
+using Vezeeta.Application.Mappings.DTOs;
 using Vezeeta.Domain;
 
 namespace Vezeeta.API.Controllers
@@ -12,20 +13,18 @@ namespace Vezeeta.API.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPatientService _patientService;
-        private readonly IMapper _mapper;
 
-        public PatientsController(IUnitOfWork unitOfWork, IMapper mapper, IPatientService patientService)
+        public PatientsController(IUnitOfWork unitOfWork, IPatientService patientService)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _patientService = patientService;
         }
 
         [HttpGet("")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] UserPaginatedSearchQueryDTO queries)
         {
-            var patients = await _patientService.GetAllAsync();
+            var patients = await _patientService.GetAllAsync(queries);
             return Ok(patients);
         }
 

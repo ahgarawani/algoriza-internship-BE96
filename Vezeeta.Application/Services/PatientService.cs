@@ -23,10 +23,19 @@ namespace Vezeeta.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<List<PatientResponseDTO>> GetAllAsync()
+        public async Task<IEnumerable<PatientResponseDTO>> GetAllAsync(UserPaginatedSearchQueryDTO queries)
         {
             var patients = await _unitOfWork.Patients.GetAllAsync();
-            return _mapper.Map<List<PatientResponseDTO>>(patients);
+            var properties = typeof(User).GetProperties();
+            var paginated = patients
+                .Where(entity =>
+                        properties.Any(p =>
+                            p.GetValue(entity)?.ToString()?.IndexOf(queries.Search, StringComparison.OrdinalIgnoreCase) >= 0
+                        ))
+                .Skip((queries.Page - 1) * queries.PageSize)
+                .Take(queries.PageSize)
+                .ToList();
+            return _mapper.Map<List<PatientResponseDTO>>(paginated);
         }
 
         public async Task<PatientResponseDTO> GetByIdAsync(int id)
