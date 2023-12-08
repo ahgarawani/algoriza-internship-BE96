@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Vezeeta.Domain.Entities;
 using Vezeeta.Domain.Repositories;
-using Vezeeta.Infrastructure.Identity;
 
 namespace Vezeeta.Infrastructure.Repositories
 {

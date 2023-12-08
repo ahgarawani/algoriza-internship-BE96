@@ -5,7 +5,7 @@ namespace Vezeeta.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    
+
     public class TestController : ControllerBase
     {
         [HttpGet("patient")]

@@ -1,19 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using Vezeeta.Application.Interfaces;
 using Vezeeta.Domain.Entities;
 
 namespace Vezeeta.Infrastructure.Identity
 {
-    public class JwtGeneratorService: IJwtGeneratorService
+    public class JwtGeneratorService : IJwtGeneratorService
     {
         readonly private UserManager<User> _userManager;
         private readonly JWT _jwt;

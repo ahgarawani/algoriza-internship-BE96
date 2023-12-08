@@ -8,7 +8,7 @@ namespace Vezeeta.Application.Services
         {
 
             if (Image == null) return null;
-            
+
             var rootDirpath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "ImageStorage");
             Directory.CreateDirectory(rootDirpath);
             var filename = $@"Image-User{userId}-{DateTime.Now.Ticks}{Path.GetExtension(Image.FileName)}";

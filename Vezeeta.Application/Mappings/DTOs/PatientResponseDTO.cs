@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-
-namespace Vezeeta.Application.Mappings.DTOs
+﻿namespace Vezeeta.Application.Mappings.DTOs
 {
     public class PatientResponseDTO
     {

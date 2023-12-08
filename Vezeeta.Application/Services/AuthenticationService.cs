@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
 using Vezeeta.Application.Interfaces;
 using Vezeeta.Application.Mappings.DTOs;
 using Vezeeta.Domain;
@@ -51,7 +50,7 @@ namespace Vezeeta.Application.Services
             var authResponse = new AuthenticationResponseDTO();
 
             var user = await _unitOfWork.Users.MatchEmailAndPasswordAsync(loginRequest.Email, loginRequest.Password);
-            
+
             if (user is null)
             {
                 authResponse.Message = "Email or Password is incorrect!";

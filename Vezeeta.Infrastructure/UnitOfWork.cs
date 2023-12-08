@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Vezeeta.Domain;
 using Vezeeta.Domain.Entities;
 using Vezeeta.Domain.Repositories;
@@ -11,7 +6,7 @@ using Vezeeta.Infrastructure.Repositories;
 
 namespace Vezeeta.Infrastructure
 {
-    public class UnitOfWork: IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         public readonly ApplicationDbContext _context;
         public readonly UserManager<User> _userManager;

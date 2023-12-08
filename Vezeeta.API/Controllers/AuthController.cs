@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Vezeeta.Application.Interfaces;
 using Vezeeta.Application.Mappings.DTOs;
-using Vezeeta.Infrastructure.Identity;
 
 namespace Vezeeta.API.Controllers
 {
@@ -12,7 +11,7 @@ namespace Vezeeta.API.Controllers
 
         private readonly IAuthenticationService _authenticationService;
 
-        public AuthController( IAuthenticationService authenticationService)
+        public AuthController(IAuthenticationService authenticationService)
         {
 
             _authenticationService = authenticationService;

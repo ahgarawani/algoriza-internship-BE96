@@ -1,12 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System.Text;
-using Vezeeta.Infrastructure.Identity;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Vezeeta.Domain;
-using Vezeeta.Application.Services;
+using System.Text;
 using Vezeeta.Application.Interfaces;
+using Vezeeta.Domain;
+using Vezeeta.Infrastructure.Identity;
 
 namespace Vezeeta.Infrastructure
 {
