@@ -9,12 +9,12 @@ namespace Vezeeta.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthManager _authManager;
+
         private readonly IAuthenticationService _authenticationService;
 
-        public AuthController(IAuthManager authManager, IAuthenticationService authenticationService)
+        public AuthController( IAuthenticationService authenticationService)
         {
-            _authManager = authManager;
+
             _authenticationService = authenticationService;
         }
 

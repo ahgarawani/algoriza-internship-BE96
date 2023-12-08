@@ -15,7 +15,6 @@ namespace Vezeeta.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddScoped<IAuthManager, AuthManager>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             return services;
         }
