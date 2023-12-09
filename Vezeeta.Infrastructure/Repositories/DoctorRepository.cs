@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Vezeeta.Domain.Entities;
 using Vezeeta.Domain.Repositories;
 
@@ -50,14 +45,14 @@ namespace Vezeeta.Infrastructure.Repositories
         public async Task DeleteAsync(int Id)
         {
             var doctorUser = _userManager.Users.Where(u => u.Doctor.Id == Id).First();
-            
+
             await _userManager.DeleteAsync(doctorUser);
         }
 
         public void Edit(Doctor doctor)
         {
             _context.Doctors.Update(doctor);
-            
+
         }
     }
 }

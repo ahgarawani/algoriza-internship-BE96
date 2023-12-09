@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using System.Reflection.Emit;
-using System.Reflection.Metadata;
 using Vezeeta.Domain.Entities;
 
 namespace Vezeeta.Infrastructure
@@ -27,7 +24,7 @@ namespace Vezeeta.Infrastructure
             builder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaims");
             builder.Entity<IdentityUserToken<int>>().ToTable("UserTokens");
             builder.Entity<Doctor>().HasIndex(d => d.UserId).IsUnique();
-            builder.Entity<DiscountCode>().HasIndex(e=>e.Code).IsUnique();
+            builder.Entity<DiscountCode>().HasIndex(e => e.Code).IsUnique();
             builder.Entity<DiscountCode>()
                 .HasMany(e => e.Users)
                 .WithMany(e => e.DiscountCodes)
@@ -46,14 +43,14 @@ namespace Vezeeta.Infrastructure
                 .OnDelete(DeleteBehavior.NoAction);
 
         }
-    
+
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Specialization> Specializations { get; set; }
         public DbSet<AppointmentsDay> AppointmentsDays { get; set; }
         public DbSet<AppointmentsHour> AppointmentsHours { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<DiscountCode> DiscountCodes { get; set; }
-        public DbSet<DiscountCodeUser> DiscountCodesUsers { get; set;}
+        public DbSet<DiscountCodeUser> DiscountCodesUsers { get; set; }
 
     }
 

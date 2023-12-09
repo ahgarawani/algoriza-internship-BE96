@@ -1,18 +1,13 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Vezeeta.Application.Interfaces;
 using Vezeeta.Application.Mappings.DTOs;
-using Vezeeta.Domain.Entities;
 using Vezeeta.Domain;
+using Vezeeta.Domain.Entities;
 using Vezeeta.Domain.Enums;
 
 namespace Vezeeta.Application.Services
 {
-    public class DoctorService: IDoctorService
+    public class DoctorService : IDoctorService
     {
         readonly private IUnitOfWork _unitOfWork;
         readonly private IMapper _mapper;
@@ -34,7 +29,7 @@ namespace Vezeeta.Application.Services
                     doctor.User.Email.IndexOf(queries.Search, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     doctor.User.PhoneNumber.IndexOf(queries.Search, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     doctor.Specialization.NameEn.IndexOf(queries.Search, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    doctor.Specialization.NameAr.IndexOf(queries.Search, StringComparison.OrdinalIgnoreCase) >= 0 
+                    doctor.Specialization.NameAr.IndexOf(queries.Search, StringComparison.OrdinalIgnoreCase) >= 0
                 )
                 .Skip((queries.Page - 1) * queries.PageSize)
                 .Take(queries.PageSize)
@@ -62,7 +57,7 @@ namespace Vezeeta.Application.Services
             if (!result.Succeeded) return (false, result.errorsMessage);
 
             doctor.User.ImagePath = ImageStorageService.SaveImage(doctorRegisterRequest.Image, doctor.User.Id);
-            
+
             _unitOfWork.Complete();
 
             return (true, "Doctor Registered Successfully!");
@@ -71,12 +66,12 @@ namespace Vezeeta.Application.Services
         public async Task<bool> DeleteAsync(int Id)
         {
             var doctor = await _unitOfWork.Doctors.GetByIdAsync(Id);
-            if (doctor == null) 
+            if (doctor == null)
                 return false;
             else
             {
                 ImageStorageService.DeleteImage(doctor.User.ImagePath);
-                await _unitOfWork.Doctors.DeleteAsync(Id); 
+                await _unitOfWork.Doctors.DeleteAsync(Id);
                 return true;
             }
         }
@@ -86,7 +81,7 @@ namespace Vezeeta.Application.Services
 
             if (doctor == null)
                 return (false, $"No Doctors With ID: {Id}!");
-            doctor.SpecializationId = doctorEditRequest.SpecializationId != default(int)? doctorEditRequest.SpecializationId: doctor.SpecializationId;
+            doctor.SpecializationId = doctorEditRequest.SpecializationId != default(int) ? doctorEditRequest.SpecializationId : doctor.SpecializationId;
             doctor.VisitPrice = doctorEditRequest.VisitPrice != default(float) ? doctorEditRequest.VisitPrice : doctor.VisitPrice;
             doctor.User.FirstName = doctorEditRequest.FirstName != null ? doctorEditRequest.FirstName : doctor.User.FirstName;
             doctor.User.LastName = doctorEditRequest.LastName != null ? doctorEditRequest.LastName : doctor.User.LastName;
@@ -101,7 +96,7 @@ namespace Vezeeta.Application.Services
                 doctor.User.ImagePath = ImageStorageService.SaveImage(doctorEditRequest.Image, doctor.User.Id);
             }
 
-            
+
             _unitOfWork.Doctors.Edit(doctor);
             _unitOfWork.Complete();
 

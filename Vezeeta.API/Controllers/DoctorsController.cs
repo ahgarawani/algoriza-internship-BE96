@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 using Vezeeta.Application.Interfaces;
 using Vezeeta.Application.Mappings.DTOs;
-using Vezeeta.Application.Services;
 using Vezeeta.Domain;
 
 namespace Vezeeta.API.Controllers
@@ -37,7 +34,7 @@ namespace Vezeeta.API.Controllers
         }
         [HttpPost("")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Add([FromForm]DoctorRegisterRequestDTO doctorRegisterRequest)
+        public async Task<IActionResult> Add([FromForm] DoctorRegisterRequestDTO doctorRegisterRequest)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -68,8 +65,8 @@ namespace Vezeeta.API.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            
-            if (await _doctorService.DeleteAsync(id)) return Ok(new { Succeeded= true });
+
+            if (await _doctorService.DeleteAsync(id)) return Ok(new { Succeeded = true });
             return NoContent();
         }
 

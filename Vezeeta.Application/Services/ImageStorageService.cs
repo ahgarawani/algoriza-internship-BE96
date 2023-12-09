@@ -23,7 +23,7 @@ namespace Vezeeta.Application.Services
 
         public static void DeleteImage(string path)
         {
-            if(File.Exists(path))
+            if (File.Exists(path))
                 File.Delete(path);
 
         }

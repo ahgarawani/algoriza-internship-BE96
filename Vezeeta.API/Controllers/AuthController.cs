@@ -27,7 +27,7 @@ namespace Vezeeta.API.Controllers
             if (registerRequest.Image != null)
             {
                 string fileExtension = Path.GetExtension(registerRequest.Image.FileName).ToLower();
-                if (!(fileExtension.Contains("png") || fileExtension.Contains("jpg") || fileExtension.Contains("jpeg"))) 
+                if (!(fileExtension.Contains("png") || fileExtension.Contains("jpg") || fileExtension.Contains("jpeg")))
                     return BadRequest("Invalid Image Format! Image must be PNG or JPEG!");
             }
 
