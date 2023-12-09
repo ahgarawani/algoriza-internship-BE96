@@ -26,6 +26,8 @@ namespace Vezeeta.Infrastructure
             builder.Entity<IdentityUserLogin<int>>().ToTable("UserLogins");
             builder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaims");
             builder.Entity<IdentityUserToken<int>>().ToTable("UserTokens");
+            builder.Entity<Doctor>().HasIndex(d => d.UserId).IsUnique();
+            builder.Entity<Specialization>().Property(s => s.Id).HasDefaultValue(0);
             builder.Entity<DiscountCode>().HasIndex(e=>e.Code).IsUnique();
             builder.Entity<DiscountCode>()
                 .HasMany(e => e.Users)

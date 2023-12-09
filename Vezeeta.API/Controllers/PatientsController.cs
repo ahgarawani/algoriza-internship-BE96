@@ -28,7 +28,7 @@ namespace Vezeeta.API.Controllers
             return Ok(patients);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetById(int id)
         {

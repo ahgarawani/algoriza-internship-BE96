@@ -16,7 +16,7 @@ namespace Vezeeta.Application.Mappings.DTOs
         [EmailAddress]
         public string Email { get; set; }
 
-        public IFormFile? Image { get; set; }
+        public virtual IFormFile? Image { get; set; }
 
         [Required]
         [Phone]

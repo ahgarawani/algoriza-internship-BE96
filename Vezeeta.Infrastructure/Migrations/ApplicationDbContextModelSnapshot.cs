@@ -175,7 +175,7 @@ namespace Vezeeta.Infrastructure.Migrations
 
                     b.HasIndex("ClinicWeekDayId");
 
-                    b.ToTable("ClinicDayHours");
+                    b.ToTable("ClinicDayHours", (string)null);
                 });
 
             modelBuilder.Entity("Vezeeta.Domain.Entities.ClinicWeekDay", b =>
@@ -196,7 +196,7 @@ namespace Vezeeta.Infrastructure.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("ClinicWeekDays");
+                    b.ToTable("ClinicWeekDays", (string)null);
                 });
 
             modelBuilder.Entity("Vezeeta.Domain.Entities.DiscountCode", b =>
@@ -223,7 +223,7 @@ namespace Vezeeta.Infrastructure.Migrations
                     b.HasIndex("Code")
                         .IsUnique();
 
-                    b.ToTable("DiscountCodes");
+                    b.ToTable("DiscountCodes", (string)null);
                 });
 
             modelBuilder.Entity("Vezeeta.Domain.Entities.DiscountCodeUser", b =>
@@ -244,7 +244,7 @@ namespace Vezeeta.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DiscountCodesUsers");
+                    b.ToTable("DiscountCodesUsers", (string)null);
                 });
 
             modelBuilder.Entity("Vezeeta.Domain.Entities.Doctor", b =>
@@ -271,7 +271,7 @@ namespace Vezeeta.Infrastructure.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctors", (string)null);
                 });
 
             modelBuilder.Entity("Vezeeta.Domain.Entities.Reservation", b =>
@@ -295,7 +295,7 @@ namespace Vezeeta.Infrastructure.Migrations
 
                     b.HasIndex("ClinicDayHourId");
 
-                    b.ToTable("Reservations");
+                    b.ToTable("Reservations", (string)null);
                 });
 
             modelBuilder.Entity("Vezeeta.Domain.Entities.Specialization", b =>
@@ -318,7 +318,7 @@ namespace Vezeeta.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Specializations");
+                    b.ToTable("Specializations", (string)null);
                 });
 
             modelBuilder.Entity("Vezeeta.Domain.Entities.User", b =>

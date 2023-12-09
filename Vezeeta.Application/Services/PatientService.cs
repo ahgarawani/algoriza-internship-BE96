@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Vezeeta.Application.Interfaces;
@@ -26,16 +27,18 @@ namespace Vezeeta.Application.Services
         public async Task<IEnumerable<PatientResponseDTO>> GetAllAsync(UserPaginatedSearchQueryDTO queries)
         {
             var patients = await _unitOfWork.Patients.GetAllAsync();
-            var properties = typeof(User).GetProperties();
-            var paginated = patients
-                .Where(entity =>
-                        properties.Any(p =>
-                            p.GetValue(entity)?.ToString()?.IndexOf(queries.Search, StringComparison.OrdinalIgnoreCase) >= 0
-                        ))
+            var PatientProperties = typeof(User).GetProperties();
+            var filteredPatients = patients
+                .Where(patient =>
+                    patient.FirstName.IndexOf(queries.Search, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    patient.LastName.IndexOf(queries.Search, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    patient.Gender.ToString().ToLower().Contains(queries.Search.ToLower()) ||
+                    patient.Email.IndexOf(queries.Search, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    patient.PhoneNumber.IndexOf(queries.Search, StringComparison.OrdinalIgnoreCase) >= 0)
                 .Skip((queries.Page - 1) * queries.PageSize)
                 .Take(queries.PageSize)
                 .ToList();
-            return _mapper.Map<List<PatientResponseDTO>>(paginated);
+            return _mapper.Map<List<PatientResponseDTO>>(filteredPatients);
         }
 
         public async Task<PatientResponseDTO> GetByIdAsync(int id)
