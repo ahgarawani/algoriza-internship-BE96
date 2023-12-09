@@ -7,12 +7,12 @@ using Vezeeta.Domain.Enums;
 
 namespace Vezeeta.Domain.Entities
 {
-    public class ClinicWeekDay
+    public class AppointmentsDay
     {
         public int Id { get; set; }
         public Day Day { get; set; }
         public Doctor Doctor { get; set; }
         public int DoctorId { get; set; }
-        public List<ClinicDayHour> DayHours { get; } = new();
+        public List<AppointmentsHour> ApointmentsHours { get; } = new();
     }
 }

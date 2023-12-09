@@ -6,8 +6,8 @@ namespace Vezeeta.Domain.Entities
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public int ClinicDayHourId { get; set; }
-        public ClinicDayHour DayHour { get; set; }
+        public int AppointmentsHourId { get; set; }
+        public AppointmentsHour AppointmentsHour { get; set; }
         public Status Status { get; set; }
         public DiscountCodeUser? DiscountCodeUser { get; set; }
         public float FinalPrice
@@ -16,9 +16,9 @@ namespace Vezeeta.Domain.Entities
             {
                 return this.DiscountCodeUser != null ?
                             (this.DiscountCodeUser.DiscountCode.Type == 0 ?
-                                this.DayHour.WeekDay.Doctor.VisitPrice * this.DiscountCodeUser.DiscountCode.Value :
-                                this.DayHour.WeekDay.Doctor.VisitPrice - this.DiscountCodeUser.DiscountCode.Value) :
-                            this.DayHour.WeekDay.Doctor.VisitPrice;
+                                this.AppointmentsHour.AppointmentsDay.Doctor.VisitPrice * this.DiscountCodeUser.DiscountCode.Value :
+                                this.AppointmentsHour.AppointmentsDay.Doctor.VisitPrice - this.DiscountCodeUser.DiscountCode.Value) :
+                            this.AppointmentsHour.AppointmentsDay.Doctor.VisitPrice;
             }
         }
 

@@ -27,7 +27,6 @@ namespace Vezeeta.Infrastructure
             builder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaims");
             builder.Entity<IdentityUserToken<int>>().ToTable("UserTokens");
             builder.Entity<Doctor>().HasIndex(d => d.UserId).IsUnique();
-            builder.Entity<Specialization>().Property(s => s.Id).HasDefaultValue(0);
             builder.Entity<DiscountCode>().HasIndex(e=>e.Code).IsUnique();
             builder.Entity<DiscountCode>()
                 .HasMany(e => e.Users)
@@ -50,8 +49,8 @@ namespace Vezeeta.Infrastructure
     
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Specialization> Specializations { get; set; }
-        public DbSet<ClinicWeekDay> ClinicWeekDays { get; set; }
-        public DbSet<ClinicDayHour> ClinicDayHours { get; set; }
+        public DbSet<AppointmentsDay> AppointmentsDays { get; set; }
+        public DbSet<AppointmentsHour> AppointmentsHours { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<DiscountCode> DiscountCodes { get; set; }
         public DbSet<DiscountCodeUser> DiscountCodesUsers { get; set;}
