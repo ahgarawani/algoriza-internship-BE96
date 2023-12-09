@@ -10,7 +10,6 @@ namespace Vezeeta.Application.Mappings
         {
             CreateMap<User, PatientResponseDTO>()
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
-                .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender == 0 ? "Female" : "Male"))
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.ImagePath) ? src.ImagePath : null));
             CreateMap<RegisterRequestDTO, User>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => $"{src.Email}"));

@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using System.Reflection.Emit;
+using System.Reflection.Metadata;
 using Vezeeta.Domain.Entities;
 
 namespace Vezeeta.Infrastructure
@@ -23,9 +26,33 @@ namespace Vezeeta.Infrastructure
             builder.Entity<IdentityUserLogin<int>>().ToTable("UserLogins");
             builder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaims");
             builder.Entity<IdentityUserToken<int>>().ToTable("UserTokens");
+            builder.Entity<DiscountCode>().HasIndex(e=>e.Code).IsUnique();
+            builder.Entity<DiscountCode>()
+                .HasMany(e => e.Users)
+                .WithMany(e => e.DiscountCodes)
+                .UsingEntity<DiscountCodeUser>();
+            builder.Entity<DiscountCode>()
+                .HasMany(e => e.Users)
+                .WithMany(e => e.DiscountCodes)
+                .UsingEntity<DiscountCodeUser>(
+                    l => l.HasOne<User>(e => e.User).WithMany(e => e.DiscountCodeUsers),
+                    r => r.HasOne<DiscountCode>(e => e.DiscountCode).WithMany(e => e.DiscountCodeUsers));
+            builder.Entity<Reservation>()
+                .HasOne(e => e.DiscountCodeUser)
+                    .WithOne(e => e.Reservation)
+                .HasForeignKey<DiscountCodeUser>(e => e.ReservationId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
+    
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Specialization> Specializations { get; set; }
+        public DbSet<ClinicWeekDay> ClinicWeekDays { get; set; }
+        public DbSet<ClinicDayHour> ClinicDayHours { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<DiscountCode> DiscountCodes { get; set; }
+        public DbSet<DiscountCodeUser> DiscountCodesUsers { get; set;}
 
     }
 

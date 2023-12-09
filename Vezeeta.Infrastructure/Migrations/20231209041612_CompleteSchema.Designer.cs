@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vezeeta.Infrastructure;
 
@@ -11,9 +12,11 @@ using Vezeeta.Infrastructure;
 namespace Vezeeta.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231209041612_CompleteSchema")]
+    partial class CompleteSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -234,13 +237,7 @@ namespace Vezeeta.Infrastructure.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ReservationId")
-                        .HasColumnType("int");
-
                     b.HasKey("DiscountCodeId", "UserId");
-
-                    b.HasIndex("ReservationId")
-                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -489,12 +486,6 @@ namespace Vezeeta.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Vezeeta.Domain.Entities.Reservation", "Reservation")
-                        .WithOne("DiscountCodeUser")
-                        .HasForeignKey("Vezeeta.Domain.Entities.DiscountCodeUser", "ReservationId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("Vezeeta.Domain.Entities.User", "User")
                         .WithMany("DiscountCodeUsers")
                         .HasForeignKey("UserId")
@@ -502,8 +493,6 @@ namespace Vezeeta.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("DiscountCode");
-
-                    b.Navigation("Reservation");
 
                     b.Navigation("User");
                 });
@@ -556,11 +545,6 @@ namespace Vezeeta.Infrastructure.Migrations
             modelBuilder.Entity("Vezeeta.Domain.Entities.Doctor", b =>
                 {
                     b.Navigation("ClinicSchedule");
-                });
-
-            modelBuilder.Entity("Vezeeta.Domain.Entities.Reservation", b =>
-                {
-                    b.Navigation("DiscountCodeUser");
                 });
 
             modelBuilder.Entity("Vezeeta.Domain.Entities.Specialization", b =>

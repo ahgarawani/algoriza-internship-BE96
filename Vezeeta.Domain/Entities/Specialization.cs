@@ -5,10 +5,12 @@ namespace Vezeeta.Domain.Entities
     public class Specialization
     {
         public int Id { get; set; }
-        [Required]
+        
+        [MaxLength(128)]
         public string NameEn { get; set; }
-        [Required]
+        
+        [MaxLength(128)]
         public string NameAr { get; set; }
-        public List<Doctor> Doctors { get; } = new List<Doctor>();
+        public List<Doctor> Doctors { get; } = new();
     }
 }
