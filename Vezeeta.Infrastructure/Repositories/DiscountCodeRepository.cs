@@ -41,7 +41,7 @@ namespace Vezeeta.Infrastructure.Repositories
 
         public async Task<DiscountCode> GetByIdAsync(int Id)
         {
-            return await _context.DiscountCodes.FindAsync(Id);
+            return await _context.DiscountCodes.Include(dc => dc.DiscountCodeUsers).ThenInclude(dcu => dcu.Reservation).FirstOrDefaultAsync(c => c.Id == Id);
         }
 
         public async Task<DiscountCode> GetByCodeAsync(string Code)

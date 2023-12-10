@@ -8,6 +8,7 @@ using Vezeeta.Application.Interfaces;
 using Vezeeta.Application.Mappings.DTOs;
 using Vezeeta.Domain;
 using Vezeeta.Domain.Entities;
+using Vezeeta.Domain.Enums;
 
 namespace Vezeeta.Application.Services
 {
@@ -63,9 +64,15 @@ namespace Vezeeta.Application.Services
         public async Task<GenericResponse> DeleteCodeAsync(int codeId)
         {
             var discountCode = await _unitOfWork.DiscountCodes.GetByIdAsync(codeId);
+            
             if (discountCode == null)
                 return new GenericResponse { Succeeded = false, Message = "An error occurred! Likely there was no such Id in the database!" };
-            
+
+            var numActiveReservations = discountCode.DiscountCodeUsers.Where(e => e.Reservation.Status == Status.Pending || e.Reservation.Status == Status.Confirmed).Count();
+
+            if (numActiveReservations > 0)
+                return new GenericResponse { Succeeded = false, Message = "An error occurred! Likely the intended code is applied to active reservations!" };
+
             try
             {
                 _unitOfWork.DiscountCodes.DeactivateCode(discountCode);
