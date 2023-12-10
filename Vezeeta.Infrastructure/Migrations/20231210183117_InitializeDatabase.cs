@@ -416,6 +416,34 @@ namespace Vezeeta.Infrastructure.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.InsertData(
+            table: "Roles",
+            columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
+            values: new object[] { 0, "Admin", "Admin".ToUpper(), Guid.NewGuid().ToString() }
+
+            );
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
+                values: new object[] { 1, "Patient", "Patient".ToUpper(), Guid.NewGuid().ToString() }
+
+            );
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
+                values: new object[] { 2, "Doctor", "Doctor".ToUpper(), Guid.NewGuid().ToString() }
+
+            );
+
+            migrationBuilder.InsertData(
+                table: "Specializations",
+                columns: new[] { "NameEn", "NameAr" },
+                values: new object[] { "Ophthalmology", "طب العيون" }
+
+            );
+
         }
 
         /// <inheritdoc />
