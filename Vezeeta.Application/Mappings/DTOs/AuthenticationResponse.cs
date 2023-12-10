@@ -1,6 +1,6 @@
 ﻿namespace Vezeeta.Application.Mappings.DTOs
 {
-    public class AuthenticationResponseDTO
+    public class AuthenticationResponse
     {
         public string Message { get; set; }
         public bool IsAuthenticated { get; set; }

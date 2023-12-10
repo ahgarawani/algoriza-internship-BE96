@@ -2,7 +2,7 @@
 
 namespace Vezeeta.Application.Mappings.DTOs
 {
-    public class LoginRequestDTO
+    public class LoginRequest
     {
         [Required]
         [EmailAddress]

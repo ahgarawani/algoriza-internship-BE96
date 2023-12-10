@@ -8,6 +8,7 @@ namespace Vezeeta.Domain
         IPatientRepository Patients { get; }
         IDoctorRepository Doctors { get; }
         ISpecializationRepository Specializations { get; }
+        IAppointmentsRepository Appointments { get;  }
         int Complete();
     }
 }

@@ -8,6 +8,6 @@ namespace Vezeeta.Domain.Entities
         public Day Day { get; set; }
         public Doctor Doctor { get; set; }
         public int DoctorId { get; set; }
-        public List<AppointmentsHour> ApointmentsHours { get; } = new();
+        public List<AppointmentsHour> ApointmentsHours { get; set; }
     }
 }

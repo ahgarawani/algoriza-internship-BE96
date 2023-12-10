@@ -15,6 +15,8 @@ namespace Vezeeta.Infrastructure
         public IPatientRepository Patients { get; private set; }
         public IDoctorRepository Doctors { get; private set; }
         public ISpecializationRepository Specializations { get; private set; }
+        public IAppointmentsRepository Appointments { get; private set; }
+        
 
         public UnitOfWork(ApplicationDbContext context, UserManager<User> userManager)
         {
@@ -25,6 +27,7 @@ namespace Vezeeta.Infrastructure
             Patients = new PatientRepository(_userManager, Users);
             Doctors = new DoctorRepository(_userManager, Users, _context);
             Specializations = new SpecializationRepository(_context);
+            Appointments = new AppointmentsRepository(_context);
         }
 
         public int Complete()

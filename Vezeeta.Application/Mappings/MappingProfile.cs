@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Collections.Generic;
 using Vezeeta.Application.Mappings.DTOs;
 using Vezeeta.Domain.Entities;
 
@@ -8,17 +9,17 @@ namespace Vezeeta.Application.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<RegisterRequestDTO, User>()
+            CreateMap<RegisterRequest, User>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => $"{src.Email}"));
 
-            CreateMap<DoctorRegisterRequestDTO, Doctor>()
+            CreateMap<DoctorRegisterRequest, Doctor>()
                 .ForMember(dest => dest.User, opt => opt.MapFrom(src => src));
 
-            CreateMap<User, PatientResponseDTO>()
+            CreateMap<User, PatientResponse>()
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.ImagePath) ? src.ImagePath : null));
 
-            CreateMap<Doctor, DoctorResponseDTO>()
+            CreateMap<Doctor, DoctorResponse>()
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.User.FirstName} {src.User.LastName}"))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.User.Email))
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.User.PhoneNumber))
@@ -27,6 +28,13 @@ namespace Vezeeta.Application.Mappings
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.User.ImagePath))
                 .ForMember(dest => dest.SpeciallizationEn, opt => opt.MapFrom(src => src.Specialization.NameEn))
                 .ForMember(dest => dest.SpeciallizationAr, opt => opt.MapFrom(src => src.Specialization.NameAr));
+
+            CreateMap<AppointmentsHourDTO, AppointmentsHour>();
+
+            CreateMap<AppointmentsDayDTO, AppointmentsDay>()
+                .ForMember(dest => dest.ApointmentsHours, opt => opt.MapFrom(src => src.Hours ));
+
+            CreateMap<AppointmentsRequest, AppointmentsDay>();
         }
 
     }

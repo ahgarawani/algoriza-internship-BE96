@@ -24,7 +24,9 @@ namespace Vezeeta.Infrastructure
             builder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaims");
             builder.Entity<IdentityUserToken<int>>().ToTable("UserTokens");
             builder.Entity<Doctor>().HasIndex(d => d.UserId).IsUnique();
-            builder.Entity<DiscountCode>().HasIndex(e => e.Code).IsUnique();
+            builder.Entity<AppointmentsDay>().HasIndex(ad => new { ad.Day, ad.DoctorId }).IsUnique(true);
+            builder.Entity<AppointmentsHour>().HasIndex(ah => new { ah.Hour, ah.AppointmentsDayId }).IsUnique(true);
+            builder.Entity<DiscountCode>().HasIndex(e => e.Code).IsUnique(true);
             builder.Entity<DiscountCode>()
                 .HasMany(e => e.Users)
                 .WithMany(e => e.DiscountCodes)

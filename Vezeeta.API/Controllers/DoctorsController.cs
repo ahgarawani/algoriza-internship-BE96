@@ -20,7 +20,7 @@ namespace Vezeeta.API.Controllers
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> GetAll([FromQuery] UserPaginatedSearchQueryDTO queries)
+        public async Task<IActionResult> GetAll([FromQuery] UserPaginatedSearchQuery queries)
         {
             var Doctors = await _doctorService.GetAllAsync(queries);
             return Ok(Doctors);
@@ -34,7 +34,7 @@ namespace Vezeeta.API.Controllers
         }
         [HttpPost("")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Add([FromForm] DoctorRegisterRequestDTO doctorRegisterRequest)
+        public async Task<IActionResult> Add([FromForm] DoctorRegisterRequest doctorRegisterRequest)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -72,7 +72,7 @@ namespace Vezeeta.API.Controllers
 
         [HttpPut("{id:int}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [FromForm] DoctorEditRequestDTO doctorEditRequest)
+        public async Task<IActionResult> Edit(int id, [FromForm] DoctorEditRequest doctorEditRequest)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -83,7 +83,7 @@ namespace Vezeeta.API.Controllers
 
         [HttpPatch("{id:int}")]
         [Authorize(Roles = "Admin, Doctor")]
-        public async Task<IActionResult> Edit(int id, [FromBody] ChangeDoctorVisitPriceDTO changeDoctorVisitPriceDTO)
+        public async Task<IActionResult> Edit(int id, [FromBody] ChangeDoctorVisitPrice changeDoctorVisitPriceDTO)
         {
             var result = await _doctorService.ChangeVisitPrice(id, changeDoctorVisitPriceDTO.price);
             if (result.Succeeded) return Ok(new { Succeeded = true });

@@ -18,7 +18,7 @@ namespace Vezeeta.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<DoctorResponseDTO>> GetAllAsync(UserPaginatedSearchQueryDTO queries)
+        public async Task<IEnumerable<DoctorResponse>> GetAllAsync(UserPaginatedSearchQuery queries)
         {
             var doctors = await _unitOfWork.Doctors.GetAllAsync();
             var filteredDoctors = doctors
@@ -34,16 +34,16 @@ namespace Vezeeta.Application.Services
                 .Skip((queries.Page - 1) * queries.PageSize)
                 .Take(queries.PageSize)
                 .ToList();
-            return _mapper.Map<List<DoctorResponseDTO>>(filteredDoctors);
+            return _mapper.Map<List<DoctorResponse>>(filteredDoctors);
         }
 
-        public async Task<DoctorResponseDTO> GetByIdAsync(int id)
+        public async Task<DoctorResponse> GetByIdAsync(int id)
         {
             var doctor = await _unitOfWork.Doctors.GetByIdAsync(id);
-            return _mapper.Map<DoctorResponseDTO>(doctor);
+            return _mapper.Map<DoctorResponse>(doctor);
         }
 
-        public async Task<(bool Succeeded, string Message)> AddAsync(DoctorRegisterRequestDTO doctorRegisterRequest)
+        public async Task<(bool Succeeded, string Message)> AddAsync(DoctorRegisterRequest doctorRegisterRequest)
         {
             if (await _unitOfWork.Users.FindByEmailAsync(doctorRegisterRequest.Email) is not null)
                 return (false, "Email is already registered!");
@@ -75,7 +75,7 @@ namespace Vezeeta.Application.Services
                 return true;
             }
         }
-        public async Task<(bool Succeeded, string Message)> EditAsync(int Id, DoctorEditRequestDTO doctorEditRequest)
+        public async Task<(bool Succeeded, string Message)> EditAsync(int Id, DoctorEditRequest doctorEditRequest)
         {
             var doctor = await _unitOfWork.Doctors.GetByIdAsync(Id);
 

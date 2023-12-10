@@ -21,7 +21,7 @@ namespace Vezeeta.API.Controllers
 
         [HttpGet("")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetAll([FromQuery] UserPaginatedSearchQueryDTO queries)
+        public async Task<IActionResult> GetAll([FromQuery] UserPaginatedSearchQuery queries)
         {
             var patients = await _patientService.GetAllAsync(queries);
             return Ok(patients);

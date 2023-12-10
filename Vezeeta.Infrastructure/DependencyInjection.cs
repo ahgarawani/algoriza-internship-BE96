@@ -20,6 +20,7 @@ namespace Vezeeta.Infrastructure
         public static IServiceCollection AddJwtBearerAuthentication(this IServiceCollection services, ConfigurationManager configuration)
         {
             services.AddTransient<IJwtGeneratorService, JwtGeneratorService>();
+            services.AddTransient<IJwtParserService, JwtParserService>();
             services.Configure<JWT>(configuration.GetSection("JWT"));
             services.AddAuthentication(options =>
             {

@@ -20,22 +20,22 @@ namespace Vezeeta.Application.Services
             _jwtGeneratorService = jwtGeneratorService;
         }
 
-        public async Task<AuthenticationResponseDTO> RegisterAsync(RegisterRequestDTO registerRequest)
+        public async Task<AuthenticationResponse> RegisterAsync(RegisterRequest registerRequest)
         {
             if (await _unitOfWork.Users.FindByEmailAsync(registerRequest.Email) is not null)
-                return new AuthenticationResponseDTO { Message = "Email is already registered!" };
+                return new AuthenticationResponse { Message = "Email is already registered!" };
 
             var user = _mapper.Map<User>(registerRequest);
             var result = await _unitOfWork.Patients.AddAsync(user, registerRequest.Password);
 
-            if (!result.Succeeded) return new AuthenticationResponseDTO { Message = result.errorsMessage };
+            if (!result.Succeeded) return new AuthenticationResponse { Message = result.errorsMessage };
 
             user.ImagePath = ImageStorageService.SaveImage(registerRequest.Image, user.Id);
             _unitOfWork.Complete();
 
             var jwtSecurityToken = await _jwtGeneratorService.CreateJwt(user);
 
-            return new AuthenticationResponseDTO
+            return new AuthenticationResponse
             {
                 Email = user.Email,
                 ExpiresOn = jwtSecurityToken.ExpiresOn,
@@ -45,9 +45,9 @@ namespace Vezeeta.Application.Services
         }
 
 
-        public async Task<AuthenticationResponseDTO> LoginAsync(LoginRequestDTO loginRequest)
+        public async Task<AuthenticationResponse> LoginAsync(LoginRequest loginRequest)
         {
-            var authResponse = new AuthenticationResponseDTO();
+            var authResponse = new AuthenticationResponse();
 
             var user = await _unitOfWork.Users.MatchEmailAndPasswordAsync(loginRequest.Email, loginRequest.Password);
 

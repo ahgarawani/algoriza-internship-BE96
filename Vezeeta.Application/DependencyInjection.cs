@@ -12,6 +12,7 @@ namespace Vezeeta.Application
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IPatientService, PatientService>();
             services.AddScoped<IDoctorService, DoctorService>();
+            services.AddScoped<IAppointmentsService, AppointmentsService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             return services;
         }

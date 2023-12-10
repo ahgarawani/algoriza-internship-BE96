@@ -18,7 +18,7 @@ namespace Vezeeta.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<PatientResponseDTO>> GetAllAsync(UserPaginatedSearchQueryDTO queries)
+        public async Task<IEnumerable<PatientResponse>> GetAllAsync(UserPaginatedSearchQuery queries)
         {
             var patients = await _unitOfWork.Patients.GetAllAsync();
             var PatientProperties = typeof(User).GetProperties();
@@ -32,13 +32,13 @@ namespace Vezeeta.Application.Services
                 .Skip((queries.Page - 1) * queries.PageSize)
                 .Take(queries.PageSize)
                 .ToList();
-            return _mapper.Map<List<PatientResponseDTO>>(filteredPatients);
+            return _mapper.Map<List<PatientResponse>>(filteredPatients);
         }
 
-        public async Task<PatientResponseDTO> GetByIdAsync(int id)
+        public async Task<PatientResponse> GetByIdAsync(int id)
         {
             var patient = await _unitOfWork.Patients.GetByIdAsync(id);
-            return _mapper.Map<PatientResponseDTO>(patient);
+            return _mapper.Map<PatientResponse>(patient);
         }
     }
 }

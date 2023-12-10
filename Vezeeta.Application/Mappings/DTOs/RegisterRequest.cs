@@ -4,7 +4,7 @@ using Vezeeta.Domain.Enums;
 
 namespace Vezeeta.Application.Mappings.DTOs
 {
-    public class RegisterRequestDTO
+    public class RegisterRequest
     {
         [Required]
         public string FirstName { get; set; }

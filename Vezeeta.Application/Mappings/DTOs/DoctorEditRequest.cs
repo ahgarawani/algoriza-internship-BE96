@@ -3,7 +3,7 @@ using Vezeeta.Domain.Enums;
 
 namespace Vezeeta.Application.Mappings.DTOs
 {
-    public class DoctorEditRequestDTO
+    public class DoctorEditRequest
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

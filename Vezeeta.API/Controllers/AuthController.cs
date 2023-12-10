@@ -18,7 +18,7 @@ namespace Vezeeta.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> SignUp([FromForm] RegisterRequestDTO registerRequest)
+        public async Task<IActionResult> SignUp([FromForm] RegisterRequest registerRequest)
         {
 
             if (!ModelState.IsValid)
@@ -40,7 +40,7 @@ namespace Vezeeta.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> GetTokenAsync([FromBody] LoginRequestDTO loginRequest)
+        public async Task<IActionResult> GetTokenAsync([FromBody] LoginRequest loginRequest)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

@@ -10,5 +10,6 @@ namespace Vezeeta.Domain.Repositories
         void Edit(Doctor Doctor);
         Task DeleteAsync(int Id);
         Task<int> CountAsync();
+        Task<Doctor> GetByUserIdAsync(int Id);
     }
 }

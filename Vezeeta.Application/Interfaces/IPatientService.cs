@@ -4,7 +4,7 @@ namespace Vezeeta.Application.Interfaces
 {
     public interface IPatientService
     {
-        Task<IEnumerable<PatientResponseDTO>> GetAllAsync(UserPaginatedSearchQueryDTO queries);
-        Task<PatientResponseDTO> GetByIdAsync(int id);
+        Task<IEnumerable<PatientResponse>> GetAllAsync(UserPaginatedSearchQuery queries);
+        Task<PatientResponse> GetByIdAsync(int id);
     }
 }

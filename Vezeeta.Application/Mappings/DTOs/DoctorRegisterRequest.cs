@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Vezeeta.Application.Mappings.DTOs
 {
-    public class DoctorRegisterRequestDTO : RegisterRequestDTO
+    public class DoctorRegisterRequest : RegisterRequest
     {
         [Required]
         public override IFormFile Image { get; set; }

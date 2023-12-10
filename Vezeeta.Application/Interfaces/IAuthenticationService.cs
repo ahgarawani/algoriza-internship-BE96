@@ -4,7 +4,7 @@ namespace Vezeeta.Application.Interfaces
 {
     public interface IAuthenticationService
     {
-        Task<AuthenticationResponseDTO> RegisterAsync(RegisterRequestDTO registerRequest);
-        Task<AuthenticationResponseDTO> LoginAsync(LoginRequestDTO loginRequest);
+        Task<AuthenticationResponse> RegisterAsync(RegisterRequest registerRequest);
+        Task<AuthenticationResponse> LoginAsync(LoginRequest loginRequest);
     }
 }

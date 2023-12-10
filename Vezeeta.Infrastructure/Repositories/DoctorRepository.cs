@@ -54,5 +54,9 @@ namespace Vezeeta.Infrastructure.Repositories
             _context.Doctors.Update(doctor);
 
         }
+        public async Task<Doctor> GetByUserIdAsync(int Id)
+        {
+            return await _context.Doctors.FirstOrDefaultAsync(x => x.UserId == Id);
+        }
     }
 }
