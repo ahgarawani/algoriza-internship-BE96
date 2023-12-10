@@ -10,6 +10,8 @@ namespace Vezeeta.Domain.Entities
         public string Code { get; set; }
         public float Value { get; set; }
         public DiscountType Type { get; set; }
+        public int RemainingUsage { get; set; } = 50;
+        public bool IsActive { get; set; } = true;
         public List<User> Users { get; } = new();
         public List<DiscountCodeUser> DiscountCodeUsers { get; } = new();
     }

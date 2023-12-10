@@ -6,9 +6,9 @@ namespace Vezeeta.Application.Interfaces
     {
         Task<IEnumerable<DoctorResponse>> GetAllAsync(UserPaginatedSearchQuery queries);
         Task<DoctorResponse> GetByIdAsync(int id);
-        Task<(bool Succeeded, string Message)> AddAsync(DoctorRegisterRequest doctorRegisterRequest);
+        Task<GenericResponse> AddAsync(DoctorRegisterRequest doctorRegisterRequest);
         Task<bool> DeleteAsync(int Id);
-        Task<(bool Succeeded, string Message)> EditAsync(int Id, DoctorEditRequest doctorEditRequest);
-        Task<(bool Succeeded, string Message)> ChangeVisitPrice(int Id, float newPrice);
+        Task<GenericResponse> EditAsync(int Id, DoctorEditRequest doctorEditRequest);
+        Task<GenericResponse> ChangeVisitPrice(int Id, float newPrice);
     }
 }

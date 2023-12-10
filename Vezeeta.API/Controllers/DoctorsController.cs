@@ -32,6 +32,7 @@ namespace Vezeeta.API.Controllers
             var patient = await _doctorService.GetByIdAsync(id);
             return Ok(patient);
         }
+
         [HttpPost("")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add([FromForm] DoctorRegisterRequest doctorRegisterRequest)
@@ -51,7 +52,7 @@ namespace Vezeeta.API.Controllers
             if (!result.Succeeded)
                 return BadRequest(result.Message);
 
-            return Ok(new { Succeeded = result.Succeeded, Message = result.Message });
+            return Ok(result);
         }
 
         [HttpGet("NumOfDoctors")]

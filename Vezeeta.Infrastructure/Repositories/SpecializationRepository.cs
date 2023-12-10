@@ -4,7 +4,7 @@ namespace Vezeeta.Infrastructure.Repositories
 {
     public class SpecializationRepository : ISpecializationRepository
     {
-        readonly private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public SpecializationRepository(ApplicationDbContext context)
         {

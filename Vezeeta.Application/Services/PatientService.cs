@@ -9,8 +9,8 @@ namespace Vezeeta.Application.Services
 {
     public class PatientService : IPatientService
     {
-        readonly private IUnitOfWork _unitOfWork;
-        readonly private IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
         public PatientService(IUnitOfWork unitOfWork, IMapper mapper)
         {

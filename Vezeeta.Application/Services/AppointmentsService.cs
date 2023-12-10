@@ -14,9 +14,9 @@ namespace Vezeeta.Application.Services
 {
     public class AppointmentsService: IAppointmentsService
     {
-        readonly private IUnitOfWork _unitOfWork;
-        readonly private IJwtParserService _jwtParserService;
-        readonly private IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IJwtParserService _jwtParserService;
+        private readonly IMapper _mapper;
 
         public AppointmentsService(IUnitOfWork unitOfWork, IJwtParserService jwtParserService, IMapper mapper)
         {
@@ -25,7 +25,7 @@ namespace Vezeeta.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<(bool Succeeded, string Message)> AddAppointmentsAsync(string jwtToken, AppointmentsRequest appointmentsRequest)
+        public async Task<GenericResponse> AddAppointmentsAsync(string jwtToken, AppointmentsRequest appointmentsRequest)
         {
             var userId = _jwtParserService.ParseJwt(jwtToken).UserId;
             var doctor = await _unitOfWork.Doctors.GetByUserIdAsync(userId);
@@ -35,11 +35,11 @@ namespace Vezeeta.Application.Services
             {
                 await _unitOfWork.Appointments.AddAppointmentsAsync(doctor, appointmentsDays);
                 _unitOfWork.Complete();
-                return (true, "Appointments Added Successfully!");
+                return new GenericResponse { Succeeded = true, Message="Appointments Added Successfully!" };
             }
             catch
             {
-                return (false, "An error occurred! Likely the request contained duplicate appointments.");
+                return new GenericResponse { Succeeded = false, Message = "An error occurred! Likely the request contained duplicate appointments."};
             }
         }
 

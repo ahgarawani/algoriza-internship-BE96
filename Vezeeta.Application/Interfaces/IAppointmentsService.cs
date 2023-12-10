@@ -9,7 +9,7 @@ namespace Vezeeta.Application.Interfaces
 {
     public interface IAppointmentsService
     {
-        Task<(bool Succeeded, string Message)> AddAppointmentsAsync(string jwtToken, AppointmentsRequest appointmentsRequest);
+        Task<GenericResponse> AddAppointmentsAsync(string jwtToken, AppointmentsRequest appointmentsRequest);
         Task<(int Status, string Message)> UpdateAppointmentAsync(string jwtToken, int appointmentId, AppointmentsHourDTO appointmentsHour);
         Task<(int Status, string Message)> DeleteAppointmentAsync(string jwtToken, int appointmentId);
     }

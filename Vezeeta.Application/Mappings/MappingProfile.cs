@@ -35,6 +35,8 @@ namespace Vezeeta.Application.Mappings
                 .ForMember(dest => dest.ApointmentsHours, opt => opt.MapFrom(src => src.Hours ));
 
             CreateMap<AppointmentsRequest, AppointmentsDay>();
+
+            CreateMap<DiscountCodeRequest, DiscountCode>();
         }
 
     }

@@ -8,9 +8,9 @@ namespace Vezeeta.Application.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        readonly private IMapper _mapper;
-        readonly private IUnitOfWork _unitOfWork;
-        readonly private IJwtGeneratorService _jwtGeneratorService;
+        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IJwtGeneratorService _jwtGeneratorService;
 
 
         public AuthenticationService(IMapper mapper, IUnitOfWork unitOfWork, IJwtGeneratorService jwtGeneratorService)

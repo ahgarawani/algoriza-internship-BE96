@@ -16,6 +16,8 @@ namespace Vezeeta.Infrastructure
         public IDoctorRepository Doctors { get; private set; }
         public ISpecializationRepository Specializations { get; private set; }
         public IAppointmentsRepository Appointments { get; private set; }
+        public IReservationRepository Reservations { get; private set; }
+        public IDiscountCodeRepository DiscountCodes { get; private set; }
         
 
         public UnitOfWork(ApplicationDbContext context, UserManager<User> userManager)
@@ -28,6 +30,8 @@ namespace Vezeeta.Infrastructure
             Doctors = new DoctorRepository(_userManager, Users, _context);
             Specializations = new SpecializationRepository(_context);
             Appointments = new AppointmentsRepository(_context);
+            Reservations = new ReservationRepository(_context);
+            DiscountCodes = new DiscountCodeRepository(_context);
         }
 
         public int Complete()

@@ -6,7 +6,7 @@ namespace Vezeeta.Infrastructure.Repositories
 {
     public class AppointmentsRepository: IAppointmentsRepository
     {
-        readonly private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public AppointmentsRepository(ApplicationDbContext context)
         {

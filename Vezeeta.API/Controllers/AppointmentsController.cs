@@ -11,7 +11,7 @@ namespace Vezeeta.API.Controllers
     [ApiController]
     public class AppointmentsController : ControllerBase
     {
-        readonly private IAppointmentsService _appointmentsService;
+        private readonly IAppointmentsService _appointmentsService;
 
         public AppointmentsController(IAppointmentsService appointmentsService)
         {
@@ -32,7 +32,7 @@ namespace Vezeeta.API.Controllers
             var result = await _appointmentsService.AddAppointmentsAsync(token, appointmentsRequest);
             if (!result.Succeeded)
                 return BadRequest(result.Message);
-            return Ok(new {Succeeded = result.Succeeded, Message = result.Message});
+            return Ok(result);
         }
 
         [HttpPatch("{id:int}")]

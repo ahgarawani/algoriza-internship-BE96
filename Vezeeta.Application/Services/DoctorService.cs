@@ -9,8 +9,8 @@ namespace Vezeeta.Application.Services
 {
     public class DoctorService : IDoctorService
     {
-        readonly private IUnitOfWork _unitOfWork;
-        readonly private IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
         public DoctorService(IUnitOfWork unitOfWork, IMapper mapper)
         {
@@ -43,24 +43,25 @@ namespace Vezeeta.Application.Services
             return _mapper.Map<DoctorResponse>(doctor);
         }
 
-        public async Task<(bool Succeeded, string Message)> AddAsync(DoctorRegisterRequest doctorRegisterRequest)
+        public async Task<GenericResponse> AddAsync(DoctorRegisterRequest doctorRegisterRequest)
         {
             if (await _unitOfWork.Users.FindByEmailAsync(doctorRegisterRequest.Email) is not null)
-                return (false, "Email is already registered!");
+                return new GenericResponse { Succeeded = false, Message = "Email is already registered!" };
 
             if (!await _unitOfWork.Specializations.DoesExist(doctorRegisterRequest.SpecializationId))
-                return (false, "Invalid Specialization Id!");
+                return new GenericResponse { Succeeded = false, Message = "Invalid Specialization Id!" };
 
             var doctor = _mapper.Map<Doctor>(doctorRegisterRequest);
             var result = await _unitOfWork.Doctors.AddAsync(doctor, doctorRegisterRequest.Password);
 
-            if (!result.Succeeded) return (false, result.errorsMessage);
+            if (!result.Succeeded) 
+                return new GenericResponse { Succeeded = false, Message = result.errorsMessage };
 
             doctor.User.ImagePath = ImageStorageService.SaveImage(doctorRegisterRequest.Image, doctor.User.Id);
 
             _unitOfWork.Complete();
 
-            return (true, "Doctor Registered Successfully!");
+            return new GenericResponse { Succeeded = true, Message = "Doctor Registered Successfully!" };
         }
 
         public async Task<bool> DeleteAsync(int Id)
@@ -75,12 +76,12 @@ namespace Vezeeta.Application.Services
                 return true;
             }
         }
-        public async Task<(bool Succeeded, string Message)> EditAsync(int Id, DoctorEditRequest doctorEditRequest)
+        public async Task<GenericResponse> EditAsync(int Id, DoctorEditRequest doctorEditRequest)
         {
             var doctor = await _unitOfWork.Doctors.GetByIdAsync(Id);
 
             if (doctor == null)
-                return (false, $"No Doctors With ID: {Id}!");
+                return new GenericResponse { Succeeded = false, Message = $"No Doctors With ID: {Id}!" };
             doctor.SpecializationId = doctorEditRequest.SpecializationId != default(int) ? doctorEditRequest.SpecializationId : doctor.SpecializationId;
             doctor.VisitPrice = doctorEditRequest.VisitPrice != default(float) ? doctorEditRequest.VisitPrice : doctor.VisitPrice;
             doctor.User.FirstName = doctorEditRequest.FirstName != null ? doctorEditRequest.FirstName : doctor.User.FirstName;
@@ -100,22 +101,22 @@ namespace Vezeeta.Application.Services
             _unitOfWork.Doctors.Edit(doctor);
             _unitOfWork.Complete();
 
-            return (true, "Doctor Updated Successfully!");
+            return new GenericResponse { Succeeded = true, Message = "Doctor Updated Successfully!" };
         }
 
-        public async Task<(bool Succeeded, string Message)> ChangeVisitPrice(int Id, float newPrice)
+        public async Task<GenericResponse> ChangeVisitPrice(int Id, float newPrice)
         {
             var doctor = await _unitOfWork.Doctors.GetByIdAsync(Id);
 
             if (doctor == null)
-                return (false, $"No Doctors With ID: {Id}!");
+                return new GenericResponse { Succeeded = false, Message = $"No Doctors With ID: {Id}!" };
 
             doctor.VisitPrice = newPrice;
 
             _unitOfWork.Doctors.Edit(doctor);
             _unitOfWork.Complete();
 
-            return (true, "Visit Price Updated Successfully!");
+            return new GenericResponse { Succeeded = true, Message = "Visit Price Updated Successfully!" };
         }
     }
 }
