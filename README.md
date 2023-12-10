@@ -11,6 +11,6 @@ It is uploaded alongside the solution. However you can find it [here](https://dr
 - There is a single Migration is used to initialize the database and seed Roles and Specializations.
 It can be executed using:`update-database` However it must be run from within the VezeetaAPI.Infrastructure project.
 
-- All the registered users have the password: `$ecurePa$$word`.
+- All the registered users have the password: `$ecurePa55word`.
 
 - The Admin user has the Email: `admin@example.com`.
