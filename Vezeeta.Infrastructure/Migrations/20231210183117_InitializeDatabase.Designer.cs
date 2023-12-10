@@ -12,8 +12,8 @@ using Vezeeta.Infrastructure;
 namespace Vezeeta.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231210045844_UpdateDiscountCode3")]
-    partial class UpdateDiscountCode3
+    [Migration("20231210183117_InitializeDatabase")]
+    partial class InitializeDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -300,8 +300,8 @@ namespace Vezeeta.Infrastructure.Migrations
                     b.Property<int>("AppointmentsHourId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<float>("FinalPrice")
+                        .HasColumnType("real");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

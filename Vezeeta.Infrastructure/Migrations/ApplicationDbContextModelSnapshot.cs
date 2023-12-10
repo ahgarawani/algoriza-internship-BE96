@@ -585,8 +585,7 @@ namespace Vezeeta.Infrastructure.Migrations
 
             modelBuilder.Entity("Vezeeta.Domain.Entities.Reservation", b =>
                 {
-                    b.Navigation("DiscountCodeUser")
-                        .IsRequired();
+                    b.Navigation("DiscountCodeUser");
                 });
 
             modelBuilder.Entity("Vezeeta.Domain.Entities.Specialization", b =>
