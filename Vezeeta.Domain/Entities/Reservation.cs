@@ -6,6 +6,8 @@ namespace Vezeeta.Domain.Entities
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
         public int AppointmentsHourId { get; set; }
         public AppointmentsHour AppointmentsHour { get; set; }
         public Status Status { get; set; }

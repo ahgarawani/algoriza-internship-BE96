@@ -39,11 +39,14 @@ namespace Vezeeta.Infrastructure
                     r => r.HasOne<DiscountCode>(e => e.DiscountCode).WithMany(e => e.DiscountCodeUsers));
             builder.Entity<Reservation>()
                 .HasOne(e => e.DiscountCodeUser)
-                    .WithOne(e => e.Reservation)
+                .WithOne(e => e.Reservation)
                 .HasForeignKey<DiscountCodeUser>(e => e.ReservationId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);
-
+            builder.Entity<Reservation>()
+                .HasOne(e => e.User)
+                .WithMany(e => e.Reservations)
+                .OnDelete(DeleteBehavior.NoAction);
         }
 
         public DbSet<Doctor> Doctors { get; set; }

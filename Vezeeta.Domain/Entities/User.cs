@@ -16,6 +16,7 @@ namespace Vezeeta.Domain.Entities
         public DateTime BirthDate { get; set; }
         public string? ImagePath { get; set; }
         public Doctor? Doctor { get; set; }
+        public List<Reservation> Reservations { get; } = new();
         public List<DiscountCode> DiscountCodes { get; } = new();
         public List<DiscountCodeUser> DiscountCodeUsers { get; } = new();
     }
