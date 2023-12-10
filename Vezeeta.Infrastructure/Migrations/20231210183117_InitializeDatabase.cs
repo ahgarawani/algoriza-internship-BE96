@@ -420,30 +420,111 @@ namespace Vezeeta.Infrastructure.Migrations
             migrationBuilder.InsertData(
             table: "Roles",
             columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
-            values: new object[] { 0, "Admin", "Admin".ToUpper(), Guid.NewGuid().ToString() }
+            values: new object[] { 1, "Admin", "Admin".ToUpper(), Guid.NewGuid().ToString() }
 
             );
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
-                values: new object[] { 1, "Patient", "Patient".ToUpper(), Guid.NewGuid().ToString() }
+                values: new object[] { 2, "Patient", "Patient".ToUpper(), Guid.NewGuid().ToString() }
 
             );
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
-                values: new object[] { 2, "Doctor", "Doctor".ToUpper(), Guid.NewGuid().ToString() }
+                values: new object[] { 3, "Doctor", "Doctor".ToUpper(), Guid.NewGuid().ToString() }
 
             );
 
             migrationBuilder.InsertData(
                 table: "Specializations",
                 columns: new[] { "NameEn", "NameAr" },
-                values: new object[] { "Ophthalmology", "طب العيون" }
-
+                values: new object[] { "General Medicine", "الطب العام" }
             );
 
+            migrationBuilder.InsertData(
+                table: "Specializations",
+                columns: new[] { "NameEn", "NameAr" },
+                values: new object[] { "Pediatrics", "طب الأطفال" }
+            );
+
+            migrationBuilder.InsertData(
+                table: "Specializations",
+                columns: new[] { "NameEn", "NameAr" },
+                values: new object[] { "Cardiology", "أمراض القلب" }
+            );
+
+            migrationBuilder.InsertData(
+                table: "Specializations",
+                columns: new[] { "NameEn", "NameAr" },
+                values: new object[] { "Dermatology", "الجلدية" }
+            );
+
+            migrationBuilder.InsertData(
+                table: "Specializations",
+                columns: new[] { "NameEn", "NameAr" },
+                values: new object[] { "Neurology", "الأعصاب" }
+            );
+
+            migrationBuilder.InsertData(
+                table: "Specializations",
+                columns: new[] { "NameEn", "NameAr" },
+                values: new object[] { "Orthopedics", "العظام" }
+            );
+            migrationBuilder.InsertData(
+                table: "Specializations",
+                columns: new[] { "NameEn", "NameAr" },
+                values: new object[] { "Gynecology", "أمراض النساء" }
+            );
+
+            migrationBuilder.InsertData(
+                table: "Specializations",
+                columns: new[] { "NameEn", "NameAr" },
+                values: new object[] { "Urology", "المسالك البولية" }
+            );
+
+            migrationBuilder.InsertData(
+                table: "Specializations",
+                columns: new[] { "NameEn", "NameAr" },
+                values: new object[] { "Ophthalmology", "العيون" }
+            );
+
+            migrationBuilder.InsertData(
+                table: "Specializations",
+                columns: new[] { "NameEn", "NameAr" },
+                values: new object[] { "Psychiatry", "الطب النفسى" }
+            );
+
+            migrationBuilder.InsertData(
+                table: "Specializations",
+                columns: new[] { "NameEn", "NameAr" },
+                values: new object[] { "Oncology", "الأورام" }
+            );
+
+            migrationBuilder.InsertData(
+                table: "Specializations",
+                columns: new[] { "NameEn", "NameAr" },
+                values: new object[] { "Gastroenterology", "الجهاز الهضمى" }
+            );
+
+            migrationBuilder.InsertData(
+                table: "Specializations",
+                columns: new[] { "NameEn", "NameAr" },
+                values: new object[] { "Otolaryngology", "الأنف والأذن والحنجرة" }
+            );
+
+            migrationBuilder.InsertData(
+                table: "Specializations",
+                columns: new[] { "NameEn", "NameAr" },
+                values: new object[] { "Endocrinology", "الغدد الصماء" }
+            );
+
+            migrationBuilder.InsertData(
+                table: "Specializations",
+                columns: new[] { "NameEn", "NameAr" },
+                values: new object[] { "Pulmonology", "أمراض الرئة" }
+            );
         }
 
         /// <inheritdoc />
