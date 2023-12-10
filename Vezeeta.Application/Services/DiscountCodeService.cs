@@ -1,9 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Vezeeta.Application.Interfaces;
 using Vezeeta.Application.Mappings.DTOs;
 using Vezeeta.Domain;
@@ -12,7 +7,7 @@ using Vezeeta.Domain.Enums;
 
 namespace Vezeeta.Application.Services
 {
-    public class DiscountCodeService: IDiscountCodeService
+    public class DiscountCodeService : IDiscountCodeService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -64,7 +59,7 @@ namespace Vezeeta.Application.Services
         public async Task<GenericResponse> DeleteCodeAsync(int codeId)
         {
             var discountCode = await _unitOfWork.DiscountCodes.GetByIdAsync(codeId);
-            
+
             if (discountCode == null)
                 return new GenericResponse { Succeeded = false, Message = "An error occurred! Likely there was no such Id in the database!" };
 

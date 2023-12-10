@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Vezeeta.Application.Interfaces;
+using Vezeeta.Application.Mappings.DTOs;
 using Vezeeta.Domain;
 using Vezeeta.Infrastructure.Identity;
 

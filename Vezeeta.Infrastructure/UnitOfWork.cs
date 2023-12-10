@@ -18,7 +18,7 @@ namespace Vezeeta.Infrastructure
         public IAppointmentsRepository Appointments { get; private set; }
         public IReservationRepository Reservations { get; private set; }
         public IDiscountCodeRepository DiscountCodes { get; private set; }
-        
+
 
         public UnitOfWork(ApplicationDbContext context, UserManager<User> userManager)
         {

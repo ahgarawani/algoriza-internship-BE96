@@ -27,7 +27,7 @@ namespace Vezeeta.API.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var patient = await _doctorService.GetByIdAsync(id);
             return Ok(patient);
@@ -64,7 +64,7 @@ namespace Vezeeta.API.Controllers
 
         [HttpDelete("{id:int}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
 
             if (await _doctorService.DeleteAsync(id)) return Ok(new { Succeeded = true });
@@ -73,7 +73,7 @@ namespace Vezeeta.API.Controllers
 
         [HttpPut("{id:int}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [FromForm] DoctorEditRequest doctorEditRequest)
+        public async Task<IActionResult> Edit([FromRoute] int id, [FromForm] DoctorEditRequest doctorEditRequest)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -84,7 +84,7 @@ namespace Vezeeta.API.Controllers
 
         [HttpPatch("{id:int}")]
         [Authorize(Roles = "Admin, Doctor")]
-        public async Task<IActionResult> Edit(int id, [FromBody] ChangeDoctorVisitPrice changeDoctorVisitPriceDTO)
+        public async Task<IActionResult> Edit([FromRoute] int id, [FromBody] ChangeDoctorVisitPrice changeDoctorVisitPriceDTO)
         {
             var result = await _doctorService.ChangeVisitPrice(id, changeDoctorVisitPriceDTO.price);
             if (result.Succeeded) return Ok(new { Succeeded = true });

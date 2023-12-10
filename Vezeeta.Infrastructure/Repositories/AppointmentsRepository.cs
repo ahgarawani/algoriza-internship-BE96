@@ -4,7 +4,7 @@ using Vezeeta.Domain.Repositories;
 
 namespace Vezeeta.Infrastructure.Repositories
 {
-    public class AppointmentsRepository: IAppointmentsRepository
+    public class AppointmentsRepository : IAppointmentsRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -21,7 +21,10 @@ namespace Vezeeta.Infrastructure.Repositories
 
         public async Task<AppointmentsHour> GetAppointmentsHourByIdAsync(int Id)
         {
-            return await _context.AppointmentsHours.Include(ah => ah.AppointmentsDay).FirstOrDefaultAsync(ah => ah.Id == Id);
+            return await _context.AppointmentsHours
+                .Include(ah => ah.AppointmentsDay)
+                .ThenInclude(ad => ad.Doctor)
+                .FirstOrDefaultAsync(ah => ah.Id == Id);
         }
 
         public void UpdateHour(AppointmentsHour hour)

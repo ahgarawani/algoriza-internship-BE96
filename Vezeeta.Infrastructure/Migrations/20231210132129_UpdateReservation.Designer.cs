@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vezeeta.Infrastructure;
 
@@ -11,9 +12,11 @@ using Vezeeta.Infrastructure;
 namespace Vezeeta.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231210132129_UpdateReservation")]
+    partial class UpdateReservation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -296,9 +299,6 @@ namespace Vezeeta.Infrastructure.Migrations
 
                     b.Property<int>("AppointmentsHourId")
                         .HasColumnType("int");
-
-                    b.Property<float>("FinalPrice")
-                        .HasColumnType("real");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -585,8 +585,7 @@ namespace Vezeeta.Infrastructure.Migrations
 
             modelBuilder.Entity("Vezeeta.Domain.Entities.Reservation", b =>
                 {
-                    b.Navigation("DiscountCodeUser")
-                        .IsRequired();
+                    b.Navigation("DiscountCodeUser");
                 });
 
             modelBuilder.Entity("Vezeeta.Domain.Entities.Specialization", b =>

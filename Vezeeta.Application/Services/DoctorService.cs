@@ -54,7 +54,7 @@ namespace Vezeeta.Application.Services
             var doctor = _mapper.Map<Doctor>(doctorRegisterRequest);
             var result = await _unitOfWork.Doctors.AddAsync(doctor, doctorRegisterRequest.Password);
 
-            if (!result.Succeeded) 
+            if (!result.Succeeded)
                 return new GenericResponse { Succeeded = false, Message = result.errorsMessage };
 
             doctor.User.ImagePath = ImageStorageService.SaveImage(doctorRegisterRequest.Image, doctor.User.Id);
@@ -67,7 +67,8 @@ namespace Vezeeta.Application.Services
         public async Task<bool> DeleteAsync(int Id)
         {
             var doctor = await _unitOfWork.Doctors.GetByIdAsync(Id);
-            if (doctor == null)
+            var numOfActiveReservations = (await _unitOfWork.Reservations.GetAllByDoctorAsync(Id)).Where(r => r.Status == Status.Pending || r.Status == Status.Confirmed).Count();
+            if (doctor == null || numOfActiveReservations == 0)
                 return false;
             else
             {

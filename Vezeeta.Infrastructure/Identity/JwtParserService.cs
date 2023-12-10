@@ -1,12 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using Vezeeta.Application.Interfaces;
 using Vezeeta.Application.Mappings.DTOs;
 
@@ -26,12 +19,15 @@ namespace Vezeeta.Infrastructure.Identity
             // Get the secret key from configuration (this should be securely stored)
 
             var tokenHandler = new JwtSecurityTokenHandler();
+            var jsonToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
 
-            var userId = (tokenHandler.ReadToken(token) as JwtSecurityToken).Subject;
+            var userId = jsonToken.Claims.FirstOrDefault(claim => claim.Type == "userId")?.Value;
+            var userRole = jsonToken.Claims.FirstOrDefault(claim => claim.Type == "roles")?.Value;
 
             return new JwtClaims
             {
-                UserId = int.Parse(userId)
+                UserId = int.Parse(userId),
+                UserRole = userRole
             };
         }
     }

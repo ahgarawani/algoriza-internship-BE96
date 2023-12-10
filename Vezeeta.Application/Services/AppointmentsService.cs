@@ -1,9 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Vezeeta.Application.Interfaces;
 using Vezeeta.Application.Mappings.DTOs;
 using Vezeeta.Domain;
@@ -12,22 +7,20 @@ using Vezeeta.Domain.Enums;
 
 namespace Vezeeta.Application.Services
 {
-    public class AppointmentsService: IAppointmentsService
+    public class AppointmentsService : IAppointmentsService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IJwtParserService _jwtParserService;
         private readonly IMapper _mapper;
 
-        public AppointmentsService(IUnitOfWork unitOfWork, IJwtParserService jwtParserService, IMapper mapper)
+        public AppointmentsService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
-            _jwtParserService = jwtParserService;
             _mapper = mapper;
         }
 
-        public async Task<GenericResponse> AddAppointmentsAsync(string jwtToken, AppointmentsRequest appointmentsRequest)
+        public async Task<GenericResponse> AddAppointmentsAsync(int userId, AppointmentsRequest appointmentsRequest)
         {
-            var userId = _jwtParserService.ParseJwt(jwtToken).UserId;
+
             var doctor = await _unitOfWork.Doctors.GetByUserIdAsync(userId);
             var appointmentsDays = _mapper.Map<List<AppointmentsDay>>(appointmentsRequest.Days);
 
@@ -35,15 +28,15 @@ namespace Vezeeta.Application.Services
             {
                 await _unitOfWork.Appointments.AddAppointmentsAsync(doctor, appointmentsDays);
                 _unitOfWork.Complete();
-                return new GenericResponse { Succeeded = true, Message="Appointments Added Successfully!" };
+                return new GenericResponse { Succeeded = true, Message = "Appointments Added Successfully!" };
             }
             catch
             {
-                return new GenericResponse { Succeeded = false, Message = "An error occurred! Likely the request contained duplicate appointments."};
+                return new GenericResponse { Succeeded = false, Message = "An error occurred! Likely the request contained duplicate appointments." };
             }
         }
 
-        public async Task<(int Status, string Message)> UpdateAppointmentAsync(string jwtToken, int appointmentId, AppointmentsHourDTO appointmentsHour)
+        public async Task<(int Status, string Message)> UpdateAppointmentAsync(int userId, int appointmentId, AppointmentsHourDTO appointmentsHour)
         {
 
             //Check if the given appointment is in the database.
@@ -52,7 +45,7 @@ namespace Vezeeta.Application.Services
                 return (204, "No such appointment was found!");
 
             //Check if the given appointment record belongs to the logged in user.
-            var userId = _jwtParserService.ParseJwt(jwtToken).UserId;
+
             var doctor = await _unitOfWork.Doctors.GetByUserIdAsync(userId);
             if (doctor.Id != appointment.AppointmentsDay.DoctorId)
                 return (403, "Access Denied!");
@@ -74,10 +67,10 @@ namespace Vezeeta.Application.Services
             {
                 return (400, "An error occurred! Likely a duplicate appointment was sent!");
             }
-            
+
         }
 
-        public async Task<(int Status, string Message)> DeleteAppointmentAsync(string jwtToken, int appointmentId)
+        public async Task<(int Status, string Message)> DeleteAppointmentAsync(int userId, int appointmentId)
         {
             //Check if the given appointment is in the database.
             var appointment = await _unitOfWork.Appointments.GetAppointmentsHourByIdAsync(appointmentId);
@@ -85,7 +78,7 @@ namespace Vezeeta.Application.Services
                 return (204, "No such appointment was found!");
 
             //Check if the given appointment record belongs to the logged in user.
-            var userId = _jwtParserService.ParseJwt(jwtToken).UserId;
+
             var doctor = await _unitOfWork.Doctors.GetByUserIdAsync(userId);
             if (doctor.Id != appointment.AppointmentsDay.DoctorId)
                 return (403, "Access Denied!");
@@ -107,5 +100,6 @@ namespace Vezeeta.Application.Services
                 return (400, "An error occurred! Likely a duplicate appointment was sent!");
             }
         }
+
     }
 }

@@ -29,7 +29,7 @@ namespace Vezeeta.API.Controllers
 
         [HttpGet("{id:int}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var patient = await _patientService.GetByIdAsync(id);
             return Ok(patient);

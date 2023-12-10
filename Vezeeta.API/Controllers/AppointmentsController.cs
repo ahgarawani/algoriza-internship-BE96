@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vezeeta.Application.Interfaces;
 using Vezeeta.Application.Mappings.DTOs;
@@ -12,10 +10,12 @@ namespace Vezeeta.API.Controllers
     public class AppointmentsController : ControllerBase
     {
         private readonly IAppointmentsService _appointmentsService;
+        private readonly IJwtParserService _jwtParserService;
 
-        public AppointmentsController(IAppointmentsService appointmentsService)
+        public AppointmentsController(IAppointmentsService appointmentsService, IJwtParserService jwtParserService)
         {
             _appointmentsService = appointmentsService;
+            _jwtParserService = jwtParserService;
         }
 
         [HttpPost("")]
@@ -25,11 +25,12 @@ namespace Vezeeta.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            //Retrieving JWT from the Authorization Header.
+            //Parsing JWT.
             var authorizationHeader = Request.Headers["Authorization"].FirstOrDefault();
             var token = authorizationHeader.Substring("Bearer ".Length);
+            var jwtClaims = _jwtParserService.ParseJwt(token);
 
-            var result = await _appointmentsService.AddAppointmentsAsync(token, appointmentsRequest);
+            var result = await _appointmentsService.AddAppointmentsAsync(jwtClaims.UserId, appointmentsRequest);
             if (!result.Succeeded)
                 return BadRequest(result.Message);
             return Ok(result);
@@ -37,16 +38,17 @@ namespace Vezeeta.API.Controllers
 
         [HttpPatch("{id:int}")]
         [Authorize(Roles = "Doctor")]
-        public async Task<IActionResult> UpdateAppointment(int Id, [FromBody] AppointmentsHourDTO appointmentsHour)
+        public async Task<IActionResult> UpdateAppointment([FromRoute] int Id, [FromBody] AppointmentsHourDTO appointmentsHour)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            //Retrieving JWT from the Authorization Header.
+            //Parsing JWT.
             var authorizationHeader = Request.Headers["Authorization"].FirstOrDefault();
             var token = authorizationHeader.Substring("Bearer ".Length);
+            var jwtClaims = _jwtParserService.ParseJwt(token);
 
-            var result = await _appointmentsService.UpdateAppointmentAsync(token, Id, appointmentsHour);
+            var result = await _appointmentsService.UpdateAppointmentAsync(jwtClaims.UserId, Id, appointmentsHour);
 
             if (result.Status == 204)
                 return NoContent();
@@ -60,14 +62,15 @@ namespace Vezeeta.API.Controllers
 
         [HttpDelete("{id:int}")]
         [Authorize(Roles = "Doctor")]
-        public async Task<IActionResult> UpdateAppointment(int Id)
+        public async Task<IActionResult> UpdateAppointment([FromRoute] int Id)
         {
 
-            //Retrieving JWT from the Authorization Header.
+            //Parsing JWT.
             var authorizationHeader = Request.Headers["Authorization"].FirstOrDefault();
             var token = authorizationHeader.Substring("Bearer ".Length);
+            var jwtClaims = _jwtParserService.ParseJwt(token);
 
-            var result = await _appointmentsService.DeleteAppointmentAsync(token, Id);
+            var result = await _appointmentsService.DeleteAppointmentAsync(jwtClaims.UserId, Id);
 
             if (result.Status == 204)
                 return NoContent();
